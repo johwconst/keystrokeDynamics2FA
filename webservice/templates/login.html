@@ -1,1 +1,254 @@
-<br>TESTE TESTE</br>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <title>Sign In | HAIS</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+      html,body {
+        height: 100%;
+      }
+
+      body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+      }
+      .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+      .form-signin input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .signup_text{
+        margin-top: 10px;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+  </head>
+
+  <body class="text-center">
+
+    <form class="form-signin">
+      <img class="mb-4" src="{{ url_for('static', filename='img/HAIS1.png') }}" alt="" width="148" height="148">
+      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+
+      <label for="userpwd" class="sr-only">ID</label>
+      <input onfocus="userid_onfocus();" onkeydown="userid_keydown();" onkeyup="checkid(event);" id="userid" type="text" class="form-control" placeholder="ID" required="" autofocus="">
+      
+      <label for="userpwd" class="sr-only">Password</label>
+      <input style="display:none;" onfocus="userid_onfocus();" onkeydown="userpwd_keydown();" onkeyup="enterkey(event);" id="userpwd" type="password" class="form-control animated fadeInDown" placeholder="Password" required="">
+
+	<h5 id='login_msg' class='animated flash' style='display:none; margin-top:10px;'></h5>
+
+      <p class="signup_text">Don't you have an account?<br><a href="/signup">Register your account here!</a></p>
+      <p class="mt-5 mb-3 text-muted">© 2019. HAIS</p>
+    </form>
+
+	<script type="text/javascript">
+      var gap;
+      var key_time = [];
+      var gap2;
+      var key_time2 = [];
+
+      // result
+      var data = []; // [[], [], []]
+
+      var try_userid = document.getElementById('userid');
+      var try_userpwd = document.getElementById('userpwd');
+      //
+      function userpwd_keydown(){
+        now_3 = Date.now();
+        gap2 = (now_3 - now_1) / 1000;   // 눌리기까지시간
+        key_time2.push(gap2);
+        now_1 = now_3;
+        gap2 = (now_3 - now_2) / 1000;   // 뗏다가 입력된시간
+        key_time2.push(gap2);
+      }
+      //
+      //
+      function userid_onfocus(){
+        now_1 = Date.now();
+        now_2 = Date.now();
+      }
+
+      function userid_keydown(){
+	document.getElementById('login_msg').style.display = 'none';
+
+        now_3 = Date.now();
+        gap = (now_3 - now_1) / 1000;   // 눌리기까지시간
+        key_time.push(gap);
+        now_1 = now_3;
+        gap = (now_3 - now_2) / 1000;   // 뗏다가 입력된시간
+        key_time.push(gap);
+      }
+      function checkid(event){
+        now_2 = Date.now();
+        gap = (now_2 - now_1) / 1000;   // 눌럿다뗀시간
+        key_time.push(gap);
+
+	if (event.keyCode == 13){
+		var userpwd = document.getElementById('userpwd');
+		userpwd.style.display = 'block';
+		userpwd.focus();
+		document.getElementById('userid').disabled = true;
+
+	}
+
+        if (event.keyCode == 8){
+          key_time = [];
+          key_time2 = [];
+          try_userid.value = '';
+        }
+      }
+      //
+
+      function enterkey() {
+        now_2 = Date.now();
+        gap2 = (now_2 - now_1) / 1000;   // 눌럿다뗀시간
+        key_time2.push(gap2);
+        //
+
+        if (event.keyCode == 8){
+          key_time2 = [];
+          try_userpwd.value = '';
+        }
+        if (window.event.keyCode == 13) {
+		document.getElementById('userpwd').disabled = true;
+
+		key_time.shift(); key_time.shift();
+            key_time.pop(); key_time.pop(); key_time.pop()		
+            key_time2.pop(); key_time2.pop(); key_time2.pop()
+
+
+            var kt = key_time.concat(key_time2);
+            data.push(kt);
+
+		var userid = document.getElementById('userid');
+		var userpwd = document.getElementById('userpwd');
+	    
+		$.ajax({
+			type : 'POST',
+			url : 'http://127.0.0.1:3000/login',
+			contentType: 'application/json; charset=UTF-8',
+			data : JSON.stringify({'data':data, 'id':userid.value, 'pwd': userpwd.value}),
+			dataType : 'json',
+			success: function(rdata){
+				if(rdata['bool']=='true'){
+					console.log('login successed..');
+
+					key_time = []
+					key_time2 = []
+					data = []
+					var r_userid = document.getElementById('userid');
+					var r_userpwd = document.getElementById('userpwd');
+
+					document.getElementById('userpwd').style.display = 'none';
+					r_userid.disabled = false;
+					r_userpwd.disabled = false;
+					r_userid.value = '';
+					r_userpwd.value = '';
+					r_userid.focus();
+
+					var login_msg = document.getElementById('login_msg');
+					login_msg.style.display = 'block';
+					login_msg.innerHTML = rdata['msg'];
+				}
+				else if(rdata['bool']=='wrong'){
+					key_time = []
+					key_time2 = []
+					data = []
+					var r_userid = document.getElementById('userid');
+					var r_userpwd = document.getElementById('userpwd');
+					
+					document.getElementById('userpwd').style.display = 'none';
+					r_userid.disabled = false;
+					r_userpwd.disabled = false;
+					r_userid.value = '';
+					r_userpwd.value = '';
+					r_userid.focus();
+					
+					var login_msg = document.getElementById('login_msg');
+					login_msg.style.display = 'block';
+					login_msg.innerHTML = rdata['msg'];
+				}
+				else if(rdata['bool']=='false'){
+					key_time = []
+					key_time2 = []
+					data = []
+					var r_userid = document.getElementById('userid');
+					var r_userpwd = document.getElementById('userpwd');
+					
+					document.getElementById('userpwd').style.display = 'none';
+					r_userid.disabled = false;
+					r_userpwd.disabled = false;
+					r_userid.value = '';
+					r_userpwd.value = '';
+					r_userid.focus();
+
+					var login_msg = document.getElementById('login_msg');
+					login_msg.style.display = 'block';
+					console.log(rdata['msg']);
+					login_msg.innerHTML = rdata['msg'];
+				}
+			}
+		});
+            
+	    key_time = [];
+            key_time2 = [];
+        }
+      }
+    </script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
