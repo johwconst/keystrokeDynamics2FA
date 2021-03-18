@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- jquery -->
+    <script src="cadastro.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
   </head>
@@ -16,7 +17,7 @@
   <body class="text-center">
   
     <!--==================================================================== FORMULARIO ====================================================================-->
-    <div class='form' style="display:block; position:absolute;z-index:100;top:0; width:50%;">
+    <div class='form' style="display:block;">
     <form class="form-cadastro">
       <img class="mb-4" src="{{ url_for('static', filename='img/estrutura_incial.png') }}" alt="" width="148" height="148">
       <h1 class="h3 mb-3 font-weight-normal">Cadastre-se</h1>
@@ -30,23 +31,36 @@
     </div>
       <div class='user_already_exist' style="display:none; margin-top: 30%; position: absolute; align-items: center;">USUARIO JÁ CADASTRADO</div>
 
-    <div class='typing-form' style="display:none; position:absolute;z-index:100;top:0; width:50%;">
-      <h1>Hora de cadastrar seu padrão biometrico, digite o seguinte texto: "Com grandes poderes vem grandes resposabilidades"</h1>
-      <input onfocus="text_onfocus();" onkeydown="digitacao_keydown();" onkeyup="digitacao_keyup(event);" type="text" class="form-control" id="try_userpwd" placeholder="Password">
-      <button id="btn_cadastro" type="button" onclick="send_biometric()" data-toggle="collapse" aria-expanded="false" class="btn-signup-check btn btn-lg btn-secondary btn-block">cadastrar</button>
+    <!--==================================================================== INPUT DIGITAÇÃO ====================================================================-->
+    <div class='typing-form' style="display:none;">
+      <h1>Hora de cadastrar seu padrão biometrico, digite o seguinte texto:</h1>
+      <div id='text_color' style="color: black; font-style: italic;">
+        <h2>"com grandes poderes vem grandes responsabilidades"</h2>
+      </div>
+      <textarea onfocus="text_onfocus();" onkeydown="digitacao_keydown();" onkeyup="digitacao_keyup();" type="text" class="form-control" id="texto_input" placeholder="Digite aqui..." cols="20" rows="3"></textarea>
+      <button id="btn_cadastrar" disabled type="button" onclick="send_biometric()" data-toggle="collapse" aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">cadastrar</button>
     </div>
 
+    <!--==================================================================== Cadastro sucesso ====================================================================-->
+    <div class='cadastro_sucesso' style="display:none;">
+      <h1>Cadastro Realizado com Sucesso!</h1>
+    </div>
+
+
+<!--==================================================================== SCRIPTS ====================================================================-->
 <script type="text/javascript">
   var usuario_id;
-  var gap;
-  var key_time = [];
-  var gap2;
-  var key_time2 = [];
+  var entrada_dados;
+  var digitacao_pattern = [];
+  var texto_input;
+  var texto_padrao = "com grandes poderes vem grandes responsabilidades";
+  const botao_cadastro = document.getElementById("btn_cadastrar");
+  const cadastro_sucesso = document.querySelector(".cadastro_sucesso");
+  const form = document.querySelector('.form');
+  const typing_form = document.querySelector('.typing-form');
+  const exist = document.querySelector('.user_already_exist');
 
-  // result
-  var data = []; // [[], [], []]
-
-  function cadastro(){    
+  function cadastro(){     
       $.ajax({
           type : 'POST',
           url : 'http://127.0.0.1:3000/usuario',
@@ -56,14 +70,10 @@
 			success: function(rdata){
 				if(rdata['cadastro_cod']=='UserRegistrySuccess'){
 					usuario_id = rdata['id_usuario']
-          console.log(usuario_id)
-          const form = document.querySelector('.form');
-          const typing_form = document.querySelector('.typing-form');
-          const exist = document.querySelector('.user_already_exist');
+          console.log(usuario_id) 
           form.style.display = 'none'
           exist.style.display = 'none'
           typing_form.style.display = 'block'
-
 				}
 				else if(rdata['cadastro_cod']=='UsernameAlreadyExist'){
           console.log('Username já cadastrado..');
@@ -76,32 +86,46 @@
   }
 
   function text_onfocus(){
-        now_1 = Date.now();
-        now_2 = Date.now();
+        now_1 = Date.now(); // PEGA HORA 1
+        now_2 = Date.now(); // PEGA HORA 2
       }
 
   function digitacao_keydown(){
         now_3 = Date.now();
-        gap2 = (now_3 - now_1) / 1000; 
-        key_time2.push(gap2);
-        now_1 = now_3;
-        gap2 = (now_3 - now_2) / 1000; 
-        key_time2.push(gap2);
+        entrada_dados = (now_3 - now_1) / 1000; 
+        digitacao_pattern.push(entrada_dados);
+        verificaTexto();
       }
 
   function digitacao_keyup() {
-        now_2 = Date.now();
-        gap2 = (now_2 - now_1) / 1000; 
-        key_time2.push(gap2);       
+        now_4 = Date.now();
+        entrada_dados = (now_4 - now_1) / 1000; 
+        digitacao_pattern.push(entrada_dados); 
+        verificaTexto()           
       }
-
   
-    function send_biometric(){
+  function verificaTexto() {
+        texto_input = document.getElementById("texto_input").value;
+        if (texto_padrao == texto_input){
+          document.getElementById("text_color").style.color="#19e030";
+          botao_cadastro.disabled = false;
+          console.log('digitado corretamente');
+        }
+        else {
+          document.getElementById("text_color").style.color="#de213a";
+          botao_cadastro.disabled = true;
+          console.log('texto não correto')
+        }
+      }
+  
+  function send_biometric(){
+      typing_form.style.display = 'none'
+      cadastro_sucesso.style.display = 'block'
       $.ajax({
           type : 'POST',
           url : 'http://127.0.0.1:3000/biometria',
           contentType: 'application/json; charset=UTF-8',
-          data : JSON.stringify({'user_id':usuario_id, 'data':key_time2}),
+          data : JSON.stringify({'user_id':usuario_id, 'data':digitacao_pattern}),
           dataType : 'json',
 			success: function(rdata){
 				if(rdata['biometric_cod']=='Success'){
@@ -114,9 +138,7 @@
 		});
     }
     
-      
-
-    </script>
+</script>
 
     
   </body>
