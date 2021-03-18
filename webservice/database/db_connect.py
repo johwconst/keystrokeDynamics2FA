@@ -53,4 +53,3 @@ def get_user_and_passw(id):
     except:
         print("Não foi possivel obter os usuarios!")
 
-drop_db()
