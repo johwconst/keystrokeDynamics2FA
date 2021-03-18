@@ -13,8 +13,10 @@ import numpy as np
 import pandas as pd
 import os
 
+BIOMETRIA_PATH = '../sdk_lib/sdk/biometrias/' # Pasta onde será salvo os dados .csv
+create_db() # Cria o banco de dados SQLite
+
 app = Flask(__name__)
-create_db() # Cria banco SQL
 
 @app.route('/')
 def home():
@@ -44,7 +46,7 @@ def biometria():
 		user_id  = response['user_id']
 		data = response['data']
 		dataframe = pd.DataFrame(data)
-		path = "biometic/" + str(user_id) + ".csv"
+		path = BIOMETRIA_PATH + str(user_id) + ".csv"
 		try: 
 			dataframe.to_csv(path, header=False, index=False)
 			return jsonify({'biometric_cod': 'Success'})
