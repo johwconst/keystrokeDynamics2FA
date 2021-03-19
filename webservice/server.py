@@ -22,13 +22,11 @@ app = Flask(__name__)
 def home():
 	return render_template('login.html')
 
-@app.route('/cadastro')
+@app.route('/cadastro', methods = ['GET', 'POST'])
 def cadastro():
-	return render_template('cadastro.html')
-
-@app.route('/usuario', methods = ['GET', 'POST'])
-def usuario():
-	if request.method == 'POST':
+	if request.method == 'GET':
+		return render_template('./cadastro/cadastro.html')
+	elif request.method == 'POST':
 		response = dict(request.get_json())
 		username  = response['username']
 		password = response['password']
@@ -39,7 +37,8 @@ def usuario():
 		else:
 			return jsonify({'cadastro_cod': 'UsernameAlreadyExist'})
 
-@app.route('/biometria', methods = ['POST'])
+
+@app.route('/cadastro/biometria', methods = ['POST'])
 def biometria():
 	if request.method == 'POST':
 		response = dict(request.get_json())
@@ -53,6 +52,8 @@ def biometria():
 		except:
 			print("Não foi possivel gerar o arquivo .csv")
 
+
+
+# Server Start
 if __name__ == '__main__':
 	app.run(host='127.0.0.1', debug=True, port=3000)
-

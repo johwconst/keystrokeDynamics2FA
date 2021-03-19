@@ -62,7 +62,7 @@
   function cadastro(){     
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/usuario',
+          url : 'http://127.0.0.1:3000/cadastro',
           contentType: 'application/json; charset=UTF-8',
           data : JSON.stringify({'username':username.value, 'password': password.value}),
           dataType : 'json',
@@ -119,26 +119,6 @@
       }
   }
   
-  
-  // function text_onfocus(){
-  //       now_1 = Date.now(); // PEGA HORA 1
-  //       now_2 = Date.now(); // PEGA HORA 2
-  //     }
-
-  // function digitacao_keydown(){
-  //       now_3 = Date.now();
-  //       entrada_dados = (now_3 - now_1) / 1000; 
-  //       digitacao_pattern.push(entrada_dados);
-  //       verificaTexto();
-  //     }
-
-  // function digitacao_keyup() {
-  //       now_4 = Date.now();
-  //       entrada_dados = (now_4 - now_1) / 1000; 
-  //       digitacao_pattern.push(entrada_dados); 
-  //       verificaTexto()           
-  //     }
-  
   function verificaTexto() {
         texto_input = document.getElementById("texto_input").value;
         if (texto_padrao == texto_input){
@@ -159,7 +139,7 @@
       cadastro_sucesso.style.display = 'block'
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/biometria',
+          url : 'http://127.0.0.1:3000/cadastro/biometria',
           contentType: 'application/json; charset=UTF-8',
           data : JSON.stringify({'user_id':usuario_id, 'data':biometric_data}),
           dataType : 'json',
