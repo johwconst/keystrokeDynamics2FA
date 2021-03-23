@@ -43,7 +43,9 @@
     <!--==================================================================== Cadastro sucesso ====================================================================-->
     <div class='cadastro_sucesso' style="display:none;">
       <h1>Cadastro Realizado com Sucesso!</h1>
+      <button id="login_page" type="button" onclick="window.location.href = 'http://127.0.0.1:3000/login'" data-toggle="collapse" aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">Login</button>
     </div>
+
 
 
 <!--==================================================================== SCRIPTS ====================================================================-->
@@ -78,7 +80,6 @@
           console.log('Username já cadastrado..');
           const exist = document.querySelector('.user_already_exist');
           exist.style.display = 'block'
-          			
 				}
 			}
 		});

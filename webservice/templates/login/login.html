@@ -15,7 +15,7 @@
 
   <body class="text-center">
   
-    <!--==================================================================== FORMULARIO ====================================================================-->
+    <!--====================================================================  FORMULARIO - AUTH 1 ====================================================================-->
     <div class='form' style="display:block;">
     <form class="form-cadastro">
       <img class="mb-4" src="{{ url_for('static', filename='img/estrutura_incial.png') }}" alt="" width="148" height="148">
@@ -26,22 +26,28 @@
 
       <label for="password" class="sr-only">senha:</label>
       <input type="text" id="password" class="form-control" placeholder="senha" required="">
-      <button id="btn_cadastro" type="button" onclick="cadastro()" data-toggle="collapse" aria-expanded="false" class="btn-signup-check btn btn-lg btn-secondary btn-block">Proximo</button>
+      <button id="btn_cadastro" type="button" onclick="login_auth1()" data-toggle="collapse" aria-expanded="false" class="btn-signup-check btn btn-lg btn-secondary btn-block">Proximo</button>
     </div>
 
-    <!--==================================================================== INPUT DIGITAÇÃO ====================================================================-->
+   <!--====================================================================  FORMULARIO - AUTH 2 ====================================================================-->
     <div class='typing-form' style="display:none;">
-      <h1>Hora de cadastrar seu padrão biometrico, digite o seguinte texto:</h1>
+      <h1>Hora de validar seu padrão biometrico, digite o seguinte texto:</h1>
       <div id='text_color' style="color: black; font-style: italic;">
         <h2>"com grandes poderes vem grandes responsabilidades"</h2>
       </div>
       <textarea onkeydown="keyDown();" onkeyup="keyUp();" type="text" class="form-control" id="texto_input" placeholder="Digite aqui..." cols="20" rows="3"></textarea>
-      <button id="btn_cadastrar" disabled type="button" onclick="send_biometric()" data-toggle="collapse" aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">cadastrar</button>
+      <button id="btn_cadastrar" disabled type="button" onclick="login_auth2()" data-toggle="collapse" aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">Login</button>
     </div>
 
-    <!--==================================================================== Cadastro sucesso ====================================================================-->
-    <div class='cadastro_sucesso' style="display:none;">
-      <h1>Cadastro Realizado com Sucesso!</h1>
+    <!--==================================================================== Menssagens ====================================================================-->
+    <div class='auth2_sucess_msg' style="display:none;">
+      <h1>Biometria enviada ao backend</h1>
+    </div>
+    <div class='auth1_msg_notexist' style="display:none; color: red;">
+      <h1>Usuario não cadastrado no sistema</h1>
+    </div>
+    <div class='auth1_msg_passfail' style="display:none; color: red;">
+      <h1>Senha não confere, tente novamente</h1>
     </div>
 
 
@@ -51,34 +57,38 @@
   var entrada_dados;
   var digitacao_pattern = [];
   var texto_input;
-  var texto_padrao = "com grandes poderes vem grandes responsabilidades";
+  var texto_padrao = "com grandes poderes vem grandes responsabilidades"; 
   const botao_cadastro = document.getElementById("btn_cadastrar");
-  const cadastro_sucesso = document.querySelector(".cadastro_sucesso");
+  const auth2_sucess_msg = document.querySelector(".auth2_sucess_msg");
+  const auth1_msg_notexist = document.querySelector(".auth1_msg_notexist");
+  const auth1_msg_passfail = document.querySelector(".auth1_msg_passfail");  
   const form = document.querySelector('.form');
   const typing_form = document.querySelector('.typing-form');
   const exist = document.querySelector('.user_already_exist');
 
-  function cadastro(){     
+  function login_auth1(){  // Primeira etapa do login
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/cadastro',
+          url : 'http://127.0.0.1:3000/login/auth1',
           contentType: 'application/json; charset=UTF-8',
           data : JSON.stringify({'username':username.value, 'password': password.value}),
           dataType : 'json',
 			success: function(rdata){
-				if(rdata['cadastro_cod']=='UserRegistrySuccess'){
+				if(rdata['auth1_code']=='success'){
 					usuario_id = rdata['id_usuario']
-          console.log(usuario_id) 
-          form.style.display = 'none'
-          exist.style.display = 'none'
+          auth1_msg_passfail.style.display = 'none'
+          auth1_msg_notexist.style.display = 'none'
           typing_form.style.display = 'block'
 				}
-				else if(rdata['cadastro_cod']=='UsernameAlreadyExist'){
-          console.log('Username já cadastrado..');
-          const exist = document.querySelector('.user_already_exist');
-          exist.style.display = 'block'
-          			
+				else if(rdata['auth1_code']=='UsernameNotExist'){
+          auth1_msg_passfail.style.display = 'none'         			
+          auth1_msg_notexist.style.display = 'block'
 				}
+        else if(rdata['auth1_code']=='PasswordIsWrong'){
+          console.log('Senha incorreta, por favor tente novamente')
+          auth1_msg_notexist.style.display = 'none'
+          auth1_msg_passfail.style.display = 'block'
+        }
 			}
 		});
   }
@@ -87,7 +97,7 @@
   var ref2 = 1;
   var biometric_data = [];
   
-  function keyDown(){
+  function keyDown(){  // Tecla pressionada para baixo
     time_1 = Date.now();
     if(ref == 1){
       hold_time2 = (time_2 - time_1) / 1000;
@@ -97,7 +107,7 @@
     }
   }
 
-  function keyUp(){
+  function keyUp(){ // Tecla liberada
     time_2 = Date.now();
     hold_time1 = (time_1 - time_2) / 1000;
     biometric_data.push(hold_time1);
@@ -105,7 +115,7 @@
     verificaTexto();
   }
 
-  function flightTime(time){
+  function flightTime(time){ // Tempo entre o pressionamento de uma tecla até o pressionamento da proxima 
       if (ref2 == 1) {
         flight_time_init = time;
         ref2 = 0; 
@@ -133,28 +143,27 @@
         }
       }
   
-  function send_biometric(){
+  function login_auth2(){  // Segunda etapa na validação do usuario 
       typing_form.style.display = 'none'
-      cadastro_sucesso.style.display = 'block'
+      auth2_sucess_msg.style.display = 'block'
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/cadastro/biometria',
+          url : 'http://127.0.0.1:3000/login/auth2',
           contentType: 'application/json; charset=UTF-8',
-          data : JSON.stringify({'user_id':usuario_id, 'data':biometric_data}),
+          data : JSON.stringify({'typing_data':biometric_data, 'user_id': usuario_id}),
           dataType : 'json',
 			success: function(rdata){
-				if(rdata['biometric_cod']=='Success'){
-					console.log('sucess')
+				if(rdata['auth2_code']=='success'){
+					console.log('USUARIO VALIDADO COM SUCESSO')
 				}
-				else if(rdata['biometric_cod']=='Fail'){
-          console.log('fail');
+				else if(rdata['auth2_code']=='fail'){
+          console.log('Falhou, o padrão de digitação não corresponde ao do usuario, por gentileza contacte o adminstrador do sistema. ');
 				}
 			}
 		});
     }
     
 </script>
-
     
-  </body>
+</body>
 </html>
