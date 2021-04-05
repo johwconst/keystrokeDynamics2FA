@@ -1,9 +1,7 @@
 import sys
 from sklearn.metrics import accuracy_score
-from utils.FileUtil import FileUtil
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
 class Classificador:
@@ -13,7 +11,7 @@ class Classificador:
         self.knn_model_test_ratio = knn_model_test_ratio
         self.neighbour_size = neighbour_size
 
-    def classifica(self):
+    def knn_euclidean(self):
         keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados)
         amostra = self.digitacao_amostra
 
@@ -23,9 +21,9 @@ class Classificador:
 
         sample_text_row = pd.DataFrame.transpose(pd.DataFrame(amostra))
 
-        data_train, data_test, target_train, target_test = train_test_split(data, target, test_size=self.knn_model_test_ratio, random_state=self.neighbour_size)
+        data_train, data_test, target_train, target_test = train_test_split(data, target, test_size=self.knn_model_test_ratio, random_state=10)
 
-        knn_model = KNeighborsClassifier(n_neighbors=3, metric="euclidean")
+        knn_model = KNeighborsClassifier(n_neighbors=self.neighbour_size, metric="euclidean")
 
         knn_model.fit(data_train, target_train)
 
@@ -37,4 +35,4 @@ class Classificador:
         accuracy = accuracy_score(target_test, inner_prediction)
         print("################# KNeighbors accuracy score : ", accuracy)
         
-        return str(outer_prediction2), accuracy 
+        return str(outer_prediction2), str(accuracy) 
