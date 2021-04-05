@@ -15,23 +15,10 @@
 
   <body class="text-center">
   
-    <!--====================================================================  FORMULARIO - AUTH 1 ====================================================================-->
-    <div class='form' style="display:block;">
-    <form class="form-cadastro">
-      <img class="mb-4" src="{{ url_for('static', filename='img/estrutura_incial.png') }}" alt="" width="148" height="148">
-      <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
-      <label for="username" class="sr-only">usuario:</label>
-      <input type="text" id="username" class="form-control" placeholder="usuario" data-toggle="tooltip" data-placement="top">
-
-      <label for="password" class="sr-only">senha:</label>
-      <input type="text" id="password" class="form-control" placeholder="senha" required="">
-      <button id="btn_cadastro" type="button" onclick="login_auth1()" data-toggle="collapse" aria-expanded="false" class="btn-signup-check btn btn-lg btn-secondary btn-block">Proximo</button>
-    </div>
-
-   <!--====================================================================  FORMULARIO - AUTH 2 ====================================================================-->
+   <!--====================================================================  TRAIN ====================================================================-->
     <div class='typing-form' style="display:none;">
-      <h1>Hora de validar seu padrão biometrico, digite o seguinte texto:</h1>
+      <h1>Treine sua rede:</h1>
       <div id='text_color' style="color: black; font-style: italic;">
         <h2>"com grandes poderes vem grandes responsabilidades"</h2>
       </div>
@@ -153,9 +140,12 @@
           data : JSON.stringify({'typing_data':biometric_data, 'user_id': usuario_id}),
           dataType : 'json',
 			success: function(rdata){
-				  resultado = rdata['resultado']
-          accuracy = rdata['accuracy']
-          alert(resultado)					
+				if(rdata['auth2_code']=='success'){
+					console.log('USUARIO VALIDADO COM SUCESSO')
+				}
+				else if(rdata['auth2_code']=='fail'){
+          console.log('Falhou, o padrão de digitação não corresponde ao do usuario, por gentileza contacte o adminstrador do sistema. ');
+				}
 			}
 		});
     }

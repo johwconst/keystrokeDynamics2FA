@@ -1,6 +1,5 @@
 import sys
 from sklearn.metrics import accuracy_score
-from utils.FileUtil import FileUtil
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import preprocessing
