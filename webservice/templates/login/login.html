@@ -49,6 +49,10 @@
     <div class='auth1_msg_passfail' style="display:none; color: red;">
       <h1>Senha não confere, tente novamente</h1>
     </div>
+    <div class='resultado_msg' style="display:none;">
+      <p id="accuracy_id"></p>
+      <p id="predict_id"></p>
+    </div>
 
 
 <!--==================================================================== SCRIPTS ====================================================================-->
@@ -65,6 +69,9 @@
   const form = document.querySelector('.form');
   const typing_form = document.querySelector('.typing-form');
   const exist = document.querySelector('.user_already_exist');
+
+  var accuracy;
+  var predict;
 
   function login_auth1(){  // Primeira etapa do login
       $.ajax({
@@ -153,9 +160,12 @@
           data : JSON.stringify({'typing_data':biometric_data, 'user_id': usuario_id}),
           dataType : 'json',
 			success: function(rdata){
-				  resultado = rdata['resultado']
+				  predict = rdata['predict']
           accuracy = rdata['accuracy']
-          alert(resultado)					
+          typing_form.style.display = 'none'
+          auth2_sucess_msg.style.display = 'none'
+          document.getElementById("accuracy_id").innerHTML=accuracy;
+          document.getElementById("predict_id").innerHTML=predict;
 			}
 		});
     }

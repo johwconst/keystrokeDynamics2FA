@@ -77,7 +77,7 @@ def auth1():
 		elif id == 1:
 			return jsonify({'auth1_code': 'PasswordIsWrong'})
 
-@app.route('/login/auth2', methods = ['POST']) # Rota para a primeira autenticação
+@app.route('/login/auth2', methods = ['POST']) # Rota para a segunda autenticação
 def auth2():
 	response = dict(request.get_json())
 	amostra_digitacao  = response['typing_data']
@@ -86,9 +86,15 @@ def auth2():
 	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.8, 2)
 	resultado = classifica.knn_euclidean()
 
-	return jsonify({'resultado': resultado[0], 'accuracy': resultado[1]})
+	print(resultado[0])
 
+	return jsonify({'predict': resultado[0], 'accuracy': resultado[1]})
 
+@app.route('/logado', methods = ['GET', 'POST'])
+def treina_bio():
+	if request.method == 'GET':
+		return render_template('./logado/logado.html')
+	
 
 # Server Start
 if __name__ == '__main__':
