@@ -17,7 +17,7 @@ class Classificador:
         amostra = self.amostra_digitacao
 
         # Deverá ser alterado quando a quantidade do array for diferente de 121
-        data = keystroke_data.iloc[:, 0:121]  
+        data = keystroke_data.iloc[:, 0:97]  
 
         # Classes para aplicação na aprendizagem supervisionada
         target = keystroke_data['CLASS']
