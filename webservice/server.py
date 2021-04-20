@@ -14,7 +14,7 @@ from flask import Flask, render_template, request, jsonify
 
 
 TYPING_DATA_PATH = './database/biometria.csv' # Pasta onde será salvo os dados .csv e banco
-drop_db() # Deleta o banco caso exista
+#drop_db() # Deleta o banco caso exista
 create_db() # Cria o banco de dados SQLite
 
 
@@ -83,10 +83,10 @@ def auth2():
 	amostra_digitacao  = response['typing_data']
 	user_id = response['user_id']
 	
-	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.8, 2)
-	resultado = classifica.knn_euclidean()
+	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
+	resultado = classifica.knn_manhattan_test()
 
-	print(resultado[0])
+	print("Usuario real:", user_id,"Usuario Previsto:", resultado[0], "accuracy:", resultado[1])
 
 	return jsonify({'predict': resultado[0], 'accuracy': resultado[1]})
 
@@ -95,7 +95,6 @@ def treina_bio():
 	if request.method == 'GET':
 		return render_template('./logado/logado.html')
 	
-
 # Server Start
 if __name__ == '__main__':
 	app.run(host='127.0.0.1', debug=True, port=3000)
