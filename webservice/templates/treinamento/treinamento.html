@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Cadastre-se</title>
-    <!-- animation -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Treinar modelo</title>
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="static/css/signin.css" rel="stylesheet">
     <!-- jquery -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
@@ -21,15 +23,15 @@
       <div id='text_color' style="color: black; font-style: italic;">
         <h2>"com grandes poderes vem grandes responsabilidades"</h2>
       </div>
-      <textarea onkeydown="keyDown();" onkeyup="keyUp();" type="text" class="form-control" id="texto_input" placeholder="Digite aqui..." cols="20" rows="3"></textarea>
-      <input type="number" id="usuario_id" class="form-control" placeholder="usuario_id" data-toggle="tooltip" data-placement="top">
-      <button id="btn_cadastrar" disabled type="button" onclick="send_biometric()" data-toggle="collapse" aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">cadastrar</button>
+      <textarea onkeydown="keyDown();" onkeyup="keyUp();" type="text" class="h6 mb-3 form-control" id="texto_input" placeholder="Digite aqui..." cols="20" rows="3"></textarea>
+      <input type="text" id="username" class="h6 mb-3 form-control" placeholder="username">
+      <button id="btn_cadastrar" disabled type="button" onclick="send_biometric()"  aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">cadastrar</button>
     </div>
 
     <!--==================================================================== Cadastro sucesso ====================================================================-->
     <div class='cadastro_sucesso' style="display:none;">
-      <h1>Cadastro Realizado com Sucesso!</h1>
-      <button id="login_page" type="button" onclick="window.location.href = 'http://127.0.0.1:3000/logado'" data-toggle="collapse" aria-expanded="false" class="btn-signup btn btn-lg btn-primary btn-block">CADASTRAR NOVAMENTE</button>
+      <h1>Treinamento Realizado com Sucesso!</h1>
+      <button id="login_page" type="button" onclick="window.location.href = 'http://127.0.0.1:3000/treinar'" class="btn-signup btn btn-lg btn-primary btn-block">TREINAR NOVAMENTE</button>
     </div>
 
 
@@ -102,9 +104,9 @@
       cadastro_sucesso.style.display = 'block'
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/cadastro/biometria',
+          url : 'http://127.0.0.1:3000/treinar/biometria',
           contentType: 'application/json; charset=UTF-8',
-          data : JSON.stringify({'user_id':usuario_id.value, 'data':biometric_data}),
+          data : JSON.stringify({'username':username.value, 'data':biometric_data}),
           dataType : 'json',
 			success: function(rdata){
 				if(rdata['biometric_cod']=='Success'){

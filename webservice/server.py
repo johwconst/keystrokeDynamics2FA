@@ -1,28 +1,18 @@
 
 # IMPORTS DE LIBS PROPRIAS
-from database.db_connect import drop_db, create_db, add_user_and_passw, check_user_and_passw
-
-#####
+from database.db_connect import drop_db, create_db, add_user_and_passw, check_user_and_passw, get_user_id
 from knn_sdk.ClassificadorKNN import Classificador
 
 import csv
-import sys
-import numpy as np
-import pandas as pd
-
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for
 
 
 TYPING_DATA_PATH = './database/biometria.csv' # Pasta onde será salvo os dados .csv e banco
-#drop_db() # Deleta o banco caso exista
-create_db() # Cria o banco de dados SQLite
-
-
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./static')
 
 @app.route('/')
 def home():
-	return render_template('./login/login.html')
+	return render_template('./home/home.html')
 
 @app.route('/cadastro', methods = ['GET', 'POST'])
 def cadastro():
@@ -46,6 +36,23 @@ def biometria():
 		response = dict(request.get_json())
 		user_id  = response['user_id']
 		data = response['data']
+		data.append(user_id) # adiciona o user id ao fim da lista
+		try:
+			with open(TYPING_DATA_PATH, 'a', newline='') as file:			
+				writer = csv.writer(file)
+				writer.writerow(data)
+
+			return jsonify({'biometric_cod': 'Success'})
+		except:
+			return jsonify({'biometric_cod': 'Não foi possivel cadastrar os dados biometricos'})
+
+@app.route('/treinar/biometria', methods = ['POST'])
+def treinar():
+	if request.method == 'POST':
+		response = dict(request.get_json())
+		username  = response['username']
+		data = response['data']
+		user_id = get_user_id(username)
 		data.append(user_id) # adiciona o user id ao fim da lista
 		try:
 			with open(TYPING_DATA_PATH, 'a', newline='') as file:			
@@ -84,16 +91,17 @@ def auth2():
 	user_id = response['user_id']
 	
 	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
-	resultado = classifica.knn_manhattan_test()
+	resultado = classifica.knn_test()
 
 	print("Usuario real:", user_id,"Usuario Previsto:", resultado[0], "accuracy:", resultado[1])
 
 	return jsonify({'predict': resultado[0], 'accuracy': resultado[1]})
 
-@app.route('/logado', methods = ['GET', 'POST'])
+@app.route('/treinar', methods = ['GET', 'POST'])
 def treina_bio():
 	if request.method == 'GET':
-		return render_template('./logado/logado.html')
+		return render_template('./treinamento/treinamento.html')
+
 	
 # Server Start
 if __name__ == '__main__':

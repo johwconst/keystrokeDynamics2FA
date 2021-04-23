@@ -1,12 +1,9 @@
 import sys
-from types import prepare_class
 from sklearn.metrics import accuracy_score
 import pandas as pd
-import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import roc_auc_score
 # teste
 import matplotlib.pyplot as plt
 from sklearn import datasets, neighbors
