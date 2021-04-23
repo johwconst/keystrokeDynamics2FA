@@ -2,12 +2,14 @@
 # IMPORTS DE LIBS PROPRIAS
 from database.db_connect import drop_db, create_db, add_user_and_passw, check_user_and_passw, get_user_id
 from knn_sdk.ClassificadorKNN import Classificador
+import datetime
 
 import csv
 from flask import Flask, render_template, request, jsonify, url_for
 
 
 TYPING_DATA_PATH = './database/biometria.csv' # Pasta onde será salvo os dados .csv e banco
+LOG_NAME = 'resultados.log'
 app = Flask(__name__, static_folder='./static')
 
 @app.route('/')
@@ -97,7 +99,26 @@ def auth2():
 
 	print("Usuario real:", user_id,"Usuario Previsto:", resultado[0], "accuracy:", resultado[1])
 
-	return jsonify({'predict': resultado[0], 'accuracy': resultado[1]})
+	if str(user_id) in resultado[0]:
+		match = True
+	else:
+		match = False
+	
+	data_hora_atual = datetime.datetime.now()
+	data_atual = data_hora_atual.strftime("%d/%m/%Y %H:00:00 ")
+    
+	with open(LOG_NAME, 'a') as arquivo: # Cria o arquivo de log
+		arquivo.write('### Usuario Real: ')
+		arquivo.write(str(user_id))
+		arquivo.write(' | Usuario Previsto: ')
+		arquivo.write(str(resultado[0]))
+		arquivo.write(' | Match: ')
+		arquivo.write(str(match))
+		arquivo.write(' | Data: ')
+		arquivo.write(data_atual)
+		arquivo.write('\n')
+
+	return jsonify({'predict': resultado[0], 'accuracy': resultado[1], 'result:': match})
 
 @app.route('/treinar', methods = ['GET', 'POST'])
 def treina_bio():
