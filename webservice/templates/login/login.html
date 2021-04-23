@@ -140,18 +140,22 @@
   }
   
   function verificaTexto() {
-        console.log(biometric_data)
-        texto_input = document.getElementById("texto_input").value;
-        if (texto_padrao == texto_input){
-          document.getElementById("text_color").style.color="#19e030";
-          botao_cadastro.disabled = false;
-          console.log('digitado corretamente');
-          console.log(biometric_data);
-        }
-        else {
-          document.getElementById("text_color").style.color="#de213a";
-          botao_cadastro.disabled = true;
-          console.log('texto não correto')
+      var key = event.keyCode || event.charCode;
+          if( key == 8 ){
+            window.location.reload(false); 
+          }
+      console.log(biometric_data)
+      texto_input = document.getElementById("texto_input").value;
+      if (texto_padrao == texto_input){
+        document.getElementById("text_color").style.color="#19e030";
+        botao_cadastro.disabled = false;
+        console.log('digitado corretamente');
+        console.log(biometric_data);
+      }
+      else {
+        document.getElementById("text_color").style.color="#de213a";
+        botao_cadastro.disabled = true;
+        console.log('texto não correto')
         }
       }
   

@@ -53,6 +53,8 @@ def treinar():
 		username  = response['username']
 		data = response['data']
 		user_id = get_user_id(username)
+		if user_id == None: #Caso seja digitado um usuario não cadastrado no treinamento, ainda ssim aproveitar os dados.
+			user_id = 999 
 		data.append(user_id) # adiciona o user id ao fim da lista
 		try:
 			with open(TYPING_DATA_PATH, 'a', newline='') as file:			

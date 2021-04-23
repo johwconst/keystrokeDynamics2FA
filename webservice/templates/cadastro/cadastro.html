@@ -44,7 +44,7 @@
       <textarea onkeydown="keyDown();" onkeyup="keyUp();" type="text" class="form-control" id="texto_input" placeholder="Digite aqui..." cols="20" rows="3"></textarea>
       <button id="btn_cadastrar" disabled type="button" onclick="send_biometric()" data-toggle="collapse" aria-expanded="false" class="h6 mb-3 btn-signup btn btn-lg btn-primary btn-block">Cadastrar Biometria</button>
       <h6 class="h6 mb-3 font-weight-normal text-danger">Observação</h6>
-      <h6 class="font-weight-normal">Não é previsto erros de digitação, caso ocorra por gentileza, pressione F5 e tente novamente.</h6>
+      <h6 class="font-weight-normal">Não é previsto erros de digitação, caso ocorra, sera reiniciado o processo.</h6>
     </div>
 
     <!--==================================================================== Cadastro sucesso ====================================================================-->
@@ -129,6 +129,10 @@
   }
   
   function verificaTexto() {
+        var key = event.keyCode || event.charCode;
+        if( key == 8 ){
+          window.location.reload(false); 
+        }
         console.log(biometric_data);
         texto_input = document.getElementById("texto_input").value;
         if (texto_padrao == texto_input){

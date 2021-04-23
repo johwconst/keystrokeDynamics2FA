@@ -26,7 +26,7 @@ class Classificador:
         
         amostra = self.amostra_digitacao
 
-        # Deverá ser alterado quando a quantidade do array for diferente de 121
+        # Deverá ser alterado quando a quantidade do array for diferente de 98
         data = keystroke_data.iloc[:, 0:97]  
 
         # Classes para aplicação na aprendizagem supervisionada
@@ -135,7 +135,7 @@ class Classificador:
         acuracia = accuracy_score(target, predict_label)
 
         print("################# Usuario predict:", inner_prediction)
-        print('[+] Accuracy - ', 100 * acuracia, '%')
+        print('[+] Accuracy - ', 100 * acuracia, '% SCORE NÃO ESTÁ CORRETO')
 
         
         return str(inner_prediction), str(acuracia)
