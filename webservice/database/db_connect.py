@@ -2,7 +2,7 @@ import sqlite3 as sql
 
 def create_db():
     try:
-        conn = sql.connect('database.db')
+        conn = sql.connect('/database.db')
         conn.execute('CREATE TABLE tb_usuario (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL)')
         print("INFO - DATABASE - Tabela criada corretamente")
         conn.close()
@@ -76,3 +76,17 @@ def get_user_and_passw(id):
     except:
         print("Não foi possivel obter os usuarios!")
 
+def get_user_id(username):
+    try:
+        con = sql.connect("database.db")
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute("select * from tb_usuario where username=?", (username,))
+    
+        rows = cur.fetchall()
+        if rows:
+            for row in rows:
+                user_id = row[0]
+        return user_id
+    except:
+        print("Não foi possivel obter o USER_ID no banco de dados!")
