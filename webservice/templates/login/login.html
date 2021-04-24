@@ -49,7 +49,15 @@
 
     <!--==================================================================== Menssagens ====================================================================-->
     <div class='auth2_sucess_msg' style="display:none;">
-      <h1>Biometria enviada ao backend</h1>
+      <h3>Usuario Cadastrado: </h3>
+      <div class="auth2_user_id"></div>
+      <h3>Usuario Previsto: </h3>
+      <div class="auth2_predict"></div>
+      <h3>accuracy: </h3>
+      <div class="auth2_acc"></div>
+      <h3>Resultado: </h3>
+      <div class="auth2_result"></div>
+      
     </div>
     <div class='auth1_msg_notexist alert alert-warning' role="alert" style="display:none;">
       <h1>Usuario não cadastrado no sistema</h1>
@@ -57,6 +65,8 @@
     <div class='auth1_msg_passfail alert alert-danger' role="alert" style="display:none;">
       <h1>Senha não confere, tente novamente</h1>
     </div>
+
+    <!--==================================================================== Resultado ====================================================================-->
 
 
 <!--==================================================================== SCRIPTS ====================================================================-->
@@ -73,6 +83,10 @@
   const form = document.querySelector('.form');
   const typing_form = document.querySelector('.typing-form');
   const exist = document.querySelector('.user_already_exist');
+  const auth2_user_id = document.querySelector('.auth2_user_id');
+  const auth2_predict = document.querySelector('.auth2_predict');
+  const auth2_acc = document.querySelector('.auth2_acc');
+  const auth2_result = document.querySelector('.auth2_result');
 
   var accuracy;
   var predict;
@@ -171,13 +185,19 @@
 			success: function(rdata){
 				  predict = rdata['predict']
           accuracy = rdata['accuracy']
+          result = rdata['result']
+          user_id = rdata['user_id']
           typing_form.style.display = 'none'
-          auth2_sucess_msg.style.display = 'none'
+          form.style.display = 'none'
+
+          auth2_user_id.innerHTML = rdata['user_id'];
+          auth2_predict.innerHTML = rdata['predict'];
+          auth2_acc.innerHTML = rdata['accuracy'];
+          auth2_result.innerHTML = rdata['result'];
 			}
 		});
     }
     
 </script>
-    
 </body>
 </html>

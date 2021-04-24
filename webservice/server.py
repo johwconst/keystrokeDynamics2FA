@@ -105,7 +105,7 @@ def auth2():
 		match = False
 	
 	data_hora_atual = datetime.datetime.now()
-	data_atual = data_hora_atual.strftime("%d/%m/%Y %H:00:00 ")
+	data_atual = data_hora_atual.strftime("%d/%m/%Y %H:%M:%S ")
     
 	with open(LOG_NAME, 'a') as arquivo: # Cria o arquivo de log
 		arquivo.write('### Usuario Real: ')
@@ -118,7 +118,7 @@ def auth2():
 		arquivo.write(data_atual)
 		arquivo.write('\n')
 
-	return jsonify({'predict': resultado[0], 'accuracy': resultado[1], 'result:': match})
+	return jsonify({'user_id':str(user_id), 'predict': resultado[0], 'accuracy': resultado[1], 'result': str(match)})
 
 @app.route('/treinar', methods = ['GET', 'POST'])
 def treina_bio():
