@@ -2,4 +2,4 @@
 
 Dynamic Keystroke Authentication - Prototype
 
-![estrutura_inicial](static/img/estrutura_inicial.png)
+![estrutura_inicial](webservice/static/img/logo.png)
