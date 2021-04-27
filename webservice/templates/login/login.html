@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
   </head>
 
-    <span type="button" onclick="window.location.href = 'http://127.0.0.1:3000/'" class="material-icons">arrow_back_ios</span>
+    <span type="button" onclick="window.location.href = '/'" class="material-icons">arrow_back_ios</span>
 
   <body class="text-center">
 
@@ -94,7 +94,7 @@
   function login_auth1(){  // Primeira etapa do login
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/login/auth1',
+          url : window.location.href + '/auth1',
           contentType: 'application/json; charset=UTF-8',
           data : JSON.stringify({'username':username.value, 'password': password.value}),
           dataType : 'json',
@@ -122,7 +122,7 @@
   var ref2 = 1;
   var biometric_data = [];
   
-  function keyDown(){
+   function keyDown(){
     time_1 = Date.now();
     if(ref == 1){
       hold_time2 = (time_2 - time_1) / 1000;
@@ -148,28 +148,27 @@
       else {
         flight_time_final = time;
         flight_time = (flight_time_init - flight_time_final) / 1000;
-        console.log(flight_time);
         ref2 = 1;
       }
   }
   
   function verificaTexto() {
-      var key = event.keyCode || event.charCode;
-          if( key == 8 ){
-            window.location.reload(false); 
-          }
-      console.log(biometric_data)
-      texto_input = document.getElementById("texto_input").value;
-      if (texto_padrao == texto_input){
-        document.getElementById("text_color").style.color="#19e030";
-        botao_cadastro.disabled = false;
-        console.log('digitado corretamente');
+        var key = event.keyCode || event.charCode;
+        if( key == 8 ){
+          window.location.reload(false); 
+        }
         console.log(biometric_data);
-      }
-      else {
-        document.getElementById("text_color").style.color="#de213a";
-        botao_cadastro.disabled = true;
-        console.log('texto não correto')
+        texto_input = document.getElementById("texto_input").value;
+        if (texto_padrao == texto_input){
+          document.getElementById("text_color").style.color="#19e030";
+          botao_cadastro.disabled = false;
+          console.log('digitado corretamente');
+          console.log(biometric_data);
+        }
+        else {
+          document.getElementById("text_color").style.color="#de213a";
+          botao_cadastro.disabled = true;
+          console.log('texto não correto')
         }
       }
   
@@ -178,7 +177,7 @@
       auth2_sucess_msg.style.display = 'block'
       $.ajax({
           type : 'POST',
-          url : 'http://127.0.0.1:3000/login/auth2',
+          url : window.location.href + '/auth2',
           contentType: 'application/json; charset=UTF-8',
           data : JSON.stringify({'typing_data':biometric_data, 'user_id': usuario_id}),
           dataType : 'json',
