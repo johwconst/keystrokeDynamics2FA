@@ -39,3 +39,6 @@
 ### Usuario Real: 1 | Usuario Previsto: ['1'] | Match: True | Data: 27/04/2021 20:45:52 
 ### Usuario Real: 1 | Usuario Previsto: ['1'] | Match: True | Data: 27/04/2021 20:52:48 
 ### Usuario Real: 1 | Usuario Previsto: ['1'] | Match: True | Data: 27/04/2021 22:18:13 
+### Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Match: True | Data: 27/04/2021 22:23:37 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Match: True | Data: 27/04/2021 22:28:54 
+[+]  Best Score: 0.9090909090909092 |  Best Params: {'leaf_size': 1, 'n_neighbors': 3, 'p': 1, 'weights': 'distance'} |  Best Estimator: KNeighborsClassifier(leaf_size=1, n_neighbors=3, p=1, weights='distance')

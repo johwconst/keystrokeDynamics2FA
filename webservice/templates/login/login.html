@@ -55,7 +55,9 @@
       <div class="auth2_predict"></div>
       <h3>accuracy: </h3>
       <div class="auth2_acc"></div>
-      <h3>Resultado: </h3>
+      <h3>Algoritimo utilizado: </h3>
+      <div class="auth2_alg"></div>
+      <h3>Resultado da Etapa 2º: </h3>
       <div class="auth2_result"></div>
       
     </div>
@@ -87,6 +89,7 @@
   const auth2_predict = document.querySelector('.auth2_predict');
   const auth2_acc = document.querySelector('.auth2_acc');
   const auth2_result = document.querySelector('.auth2_result');
+  const auth2_alg = document.querySelector('.auth2_alg');
 
   var accuracy;
   var predict;
@@ -193,6 +196,7 @@
           auth2_predict.innerHTML = rdata['predict'];
           auth2_acc.innerHTML = rdata['accuracy'];
           auth2_result.innerHTML = rdata['result'];
+          auth2_alg.innerHTML = rdata['algoritimo'];
 			}
 		});
     }

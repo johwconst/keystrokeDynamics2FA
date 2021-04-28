@@ -21,6 +21,7 @@ class Classificador:
         self.neighbour_size = neighbour_size                                    # Controla o embaralhamento aplicado aos dados antes de aplicar a divisão. Passe um int para saída reproduzível em várias chamadas de função. 
 
     def knn_manhattan_com_treino(self):
+        description = 'knn_manhattan_t'
         keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados, keep_default_na=False)
         
         amostra = self.amostra_digitacao
@@ -47,10 +48,11 @@ class Classificador:
         print("################# Usuario predict:", usuario_predict)
         print("################# KNeighbors accuracy score : ", accuracy)
         
-        return str(usuario_predict), str(accuracy)
+        return str(usuario_predict), str(accuracy), description
 
         
     def knn_manhattan_sem_treino(self):
+        description = 'knn_manhattan_s'
         keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados, keep_default_na=False)
         
         amostra = self.amostra_digitacao
@@ -78,10 +80,9 @@ class Classificador:
         print('[+] Class Predict - ', inner_prediction)
         print('[+] Accuracy - ', 100 * acuracia, '% SCORE NÃO ESTÁ CORRETO')
  
-        return str(inner_prediction), str(acuracia)
+        return str(inner_prediction), str(acuracia), description
 
     def hyper_parameters_tuning(self):
-        description = 'hyper_parameters_tuning'
 
         keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados, keep_default_na=False)
         

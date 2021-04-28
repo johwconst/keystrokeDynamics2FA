@@ -108,17 +108,19 @@ def auth2():
 	data_atual = data_hora_atual.strftime("%d/%m/%Y %H:%M:%S ")
     
 	with open(LOG_NAME, 'a') as arquivo: # Cria o arquivo de log
-		arquivo.write('### Usuario Real: ')
+		arquivo.write('[+]  Usuario Real: ')
 		arquivo.write(str(user_id))
 		arquivo.write(' | Usuario Previsto: ')
 		arquivo.write(str(resultado[0]))
+		arquivo.write(' | Algoritimo: ')
+		arquivo.write(str(resultado[2]))
 		arquivo.write(' | Match: ')
 		arquivo.write(str(match))
 		arquivo.write(' | Data: ')
 		arquivo.write(data_atual)
 		arquivo.write('\n')
 
-	return jsonify({'user_id':str(user_id), 'predict': resultado[0], 'accuracy': resultado[1], 'result': str(match)})
+	return jsonify({'user_id':str(user_id), 'predict': resultado[0], 'accuracy': resultado[1], 'result': str(match), 'algoritimo': resultado[2]})
 
 @app.route('/treinar', methods = ['GET', 'POST'])
 def treina_bio():
@@ -134,6 +136,14 @@ def best_params_result():
 	amostra_digitacao = '' # Aritificio para permitir a utilização da classe
 	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
 	best_score, best_params, best_estimator = classifica.hyper_parameters_tuning()
+
+	with open(LOG_NAME, 'a') as arquivo: # Cria o arquivo de log
+		arquivo.write('[+]  Best Score: ')
+		arquivo.write(str(best_score))
+		arquivo.write(' |  Best Params: ')
+		arquivo.write(str(best_params))
+		arquivo.write(' |  Best Estimator: ')
+		arquivo.write(str(best_estimator))
 
 	return jsonify({'best_score':str(best_score), 'best_params': str(best_params), 'best_estimator': str(best_estimator) })
 	
