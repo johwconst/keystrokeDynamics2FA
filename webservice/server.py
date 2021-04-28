@@ -95,7 +95,7 @@ def auth2():
 	user_id = response['user_id']
 	
 	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
-	resultado = classifica.knn_test()
+	resultado = classifica.knn_manhattan_sem_treino()
 
 	print("Usuario real:", user_id,"Usuario Previsto:", resultado[0], "accuracy:", resultado[1])
 
@@ -125,6 +125,17 @@ def treina_bio():
 	if request.method == 'GET':
 		return render_template('./treinamento/treinamento.html')
 
+@app.route('/best_params', methods = ['GET'])
+def best_params():
+	return render_template('./best_params/best_params.html')
+
+@app.route('/best_params/result', methods = ['GET'])
+def best_params_result():
+	amostra_digitacao = '' # Aritificio para permitir a utilização da classe
+	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
+	best_score, best_params, best_estimator = classifica.hyper_parameters_tuning()
+
+	return jsonify({'best_score':str(best_score), 'best_params': str(best_params), 'best_estimator': str(best_estimator) })
 	
 # Server Start
 if __name__ == '__main__':
