@@ -1,15 +1,12 @@
 import sys
 from sklearn.metrics import accuracy_score
 import pandas as pd
+import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 # teste
-import matplotlib.pyplot as plt
-from sklearn import datasets, neighbors
-from mlxtend.plotting import plot_decision_regions
-from matplotlib.colors import ListedColormap
-import seaborn as sns
+from sklearn.model_selection import cross_val_score, cross_validate
 
 
 
@@ -45,8 +42,7 @@ class Classificador:
 
         accuracy = accuracy_score(target_test, inner_prediction)
 
-        print("################# Usuario predict:", usuario_predict)
-        print("################# KNeighbors accuracy score : ", accuracy)
+        print("[+] Usuario predict:", usuario_predict)
         
         return str(usuario_predict), str(accuracy), description
 
@@ -74,11 +70,9 @@ class Classificador:
             inner_prediction = knn_model.predict(sample_text_row)
             predict_label.append(inner_prediction)
     
-
         acuracia = accuracy_score(target, predict_label)
 
-        print('[+] Class Predict - ', inner_prediction)
-        print('[+] Accuracy - ', 100 * acuracia, '% SCORE NÃO ESTÁ CORRETO')
+        print('[+] Usuario Predict - ', inner_prediction)
  
         return str(inner_prediction), str(acuracia), description
 
@@ -86,8 +80,6 @@ class Classificador:
 
         keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados, keep_default_na=False)
         
-        amostra = self.amostra_digitacao
-
         # Deverá ser alterado quando a quantidade do array for diferente de 121
         data = keystroke_data.iloc[:, 0:97]  
 
@@ -115,3 +107,26 @@ class Classificador:
         print('[+] Best Estimator - ',best_estimator)
  
         return best_score, best_params, best_estimator
+
+    def get_cv_score(self):
+        description = 'knn_manhattan_score_teste'
+        keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados, keep_default_na=False)
+
+        # Deverá ser alterado quando a quantidade do array for diferente de 121
+
+        data = keystroke_data.iloc[:, 0:97]  
+
+        # Classes para aplicação na aprendizagem supervisionada
+        target = keystroke_data['CLASS']
+
+        knn_model = KNeighborsClassifier(n_neighbors=self.neighbour_size, metric="manhattan")
+
+        knn_model.fit(data, target)
+
+        scores = cross_validate(knn_model, data, target, scoring=['accuracy'])
+        score_result = scores['test_accuracy'].mean() * 100
+        print('[+] Média Accuracy (test_accuracy): %.2f' % score_result)
+ 
+        return score_result
+
+    

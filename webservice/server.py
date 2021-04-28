@@ -10,6 +10,8 @@ from flask import Flask, render_template, request, jsonify, url_for
 
 TYPING_DATA_PATH = './database/biometria.csv' # Pasta onde será salvo os dados .csv e banco
 LOG_NAME = 'resultados.log'
+K = 3
+SPLIT = 0.8
 app = Flask(__name__, static_folder='./static')
 
 @app.route('/')
@@ -94,10 +96,10 @@ def auth2():
 	amostra_digitacao  = response['typing_data']
 	user_id = response['user_id']
 	
-	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
+	##### Classificação
+	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, SPLIT, K)
 	resultado = classifica.knn_manhattan_sem_treino()
-
-	print("Usuario real:", user_id,"Usuario Previsto:", resultado[0], "accuracy:", resultado[1])
+	cross_val_score = classifica.get_cv_score()
 
 	if str(user_id) in resultado[0]:
 		match = True
@@ -114,13 +116,17 @@ def auth2():
 		arquivo.write(str(resultado[0]))
 		arquivo.write(' | Algoritimo: ')
 		arquivo.write(str(resultado[2]))
+		arquivo.write(' | Valor de K: ')
+		arquivo.write(str(K))
 		arquivo.write(' | Match: ')
 		arquivo.write(str(match))
+		arquivo.write(' | Accuracy: ')
+		arquivo.write(str(cross_val_score))
 		arquivo.write(' | Data: ')
 		arquivo.write(data_atual)
 		arquivo.write('\n')
 
-	return jsonify({'user_id':str(user_id), 'predict': resultado[0], 'accuracy': resultado[1], 'result': str(match), 'algoritimo': resultado[2]})
+	return jsonify({'user_id':str(user_id), 'predict': resultado[0], 'accuracy': cross_val_score, 'result': str(match), 'algoritimo': resultado[2]})
 
 @app.route('/treinar', methods = ['GET', 'POST'])
 def treina_bio():
