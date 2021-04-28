@@ -137,6 +137,9 @@ def best_params_result():
 	classifica = Classificador(TYPING_DATA_PATH, amostra_digitacao, 0.7, 3)
 	best_score, best_params, best_estimator = classifica.hyper_parameters_tuning()
 
+	data_hora_atual = datetime.datetime.now()
+	data_atual = data_hora_atual.strftime("%d/%m/%Y %H:%M:%S ")
+
 	with open(LOG_NAME, 'a') as arquivo: # Cria o arquivo de log
 		arquivo.write('[+]  Best Score: ')
 		arquivo.write(str(best_score))
@@ -144,6 +147,9 @@ def best_params_result():
 		arquivo.write(str(best_params))
 		arquivo.write(' |  Best Estimator: ')
 		arquivo.write(str(best_estimator))
+		arquivo.write(' | Data: ')
+		arquivo.write(data_atual)
+		arquivo.write('\n')
 
 	return jsonify({'best_score':str(best_score), 'best_params': str(best_params), 'best_estimator': str(best_estimator) })
 	
