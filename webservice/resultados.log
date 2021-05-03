@@ -65,3 +65,13 @@
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Cross Val Result: 81.81818181818184 | Data: 28/04/2021 00:11:22 
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 81.81818181818184 | Data: 28/04/2021 00:13:45 
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 81.81818181818184 | Data: 28/04/2021 00:18:51 
+[+]  Best Score: 0.9090909090909092 |  Best Params: {'leaf_size': 1, 'n_neighbors': 3, 'p': 1, 'weights': 'distance'} |  Best Estimator: KNeighborsClassifier(leaf_size=1, n_neighbors=3, p=1, weights='distance') | Data: 29/04/2021 20:39:45 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 81.81818181818184 | Data: 29/04/2021 20:47:06 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: nan | Data: 29/04/2021 20:47:55 
+[+]  Usuario Real: 25 | Usuario Previsto: ['25'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 03/05/2021 18:00:06 
+[+]  Usuario Real: 25 | Usuario Previsto: ['13'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 03/05/2021 18:01:27 
+[+]  Usuario Real: 25 | Usuario Previsto: ['25'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 03/05/2021 18:02:25 
+[+]  Usuario Real: 25 | Usuario Previsto: ['3'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 03/05/2021 18:03:11 
+[+]  Usuario Real: 25 | Usuario Previsto: ['3'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 03/05/2021 18:04:02 
+[+]  Usuario Real: 27 | Usuario Previsto: ['27'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 77.14285714285715 | Data: 03/05/2021 18:11:43 
+[+]  Best Score: 0.8714285714285716 |  Best Params: {'leaf_size': 1, 'n_neighbors': 3, 'p': 1, 'weights': 'distance'} |  Best Estimator: KNeighborsClassifier(leaf_size=1, n_neighbors=3, p=1, weights='distance') | Data: 03/05/2021 18:13:38 
