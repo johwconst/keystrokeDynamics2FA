@@ -78,3 +78,7 @@
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 77.33333333333333 | Data: 03/05/2021 20:53:33 
 [+]  Best Score: 0.8800000000000001 |  Best Params: {'leaf_size': 1, 'n_neighbors': 4, 'p': 1, 'weights': 'distance'} |  Best Estimator: KNeighborsClassifier(leaf_size=1, n_neighbors=4, p=1, weights='distance') | Data: 03/05/2021 20:54:48 
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 78.75 | Data: 03/05/2021 23:01:07 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 78.75 | Data: 04/05/2021 19:47:21 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 4 | Match: True | Accuracy: 77.5 | Data: 04/05/2021 19:58:05 
+[+]  Best Score: 0.8875 |  Best Params: {'leaf_size': 1, 'n_neighbors': 4, 'p': 1, 'weights': 'distance'} |  Best Estimator: KNeighborsClassifier(leaf_size=1, n_neighbors=4, p=1, weights='distance') | Data: 04/05/2021 20:00:06 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 78.75 | Data: 04/05/2021 20:04:21 
