@@ -1,12 +1,11 @@
-import sys
+
 from sklearn.metrics import accuracy_score
 import pandas as pd
-import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 # teste
-from sklearn.model_selection import cross_val_score, cross_validate
+from sklearn.model_selection import cross_validate
 
 
 
@@ -17,7 +16,7 @@ class Classificador:
         self.knn_model_test_ratio = knn_model_test_ratio                        # Deve estar entre 0,0 e 1,0 e representar a proporção do conjunto de dados a ser incluído na divisão de teste.
         self.neighbour_size = neighbour_size                                    # Controla o embaralhamento aplicado aos dados antes de aplicar a divisão. Passe um int para saída reproduzível em várias chamadas de função. 
 
-    def knn_manhattan_com_treino(self):
+    def knn_manhattan_holdout(self): # metricada é dada por holdout
         description = 'knn_manhattan_t'
         keystroke_data = pd.read_csv(self.arquivo_biometrico_cadastrados, keep_default_na=False)
         
@@ -123,7 +122,7 @@ class Classificador:
 
         knn_model.fit(data, target)
 
-        scores = cross_validate(knn_model, data, target, scoring=['accuracy'])
+        scores = cross_validate(knn_model, data, target, scoring=['accuracy']) # ROC_AUC
         score_result = scores['test_accuracy'].mean() * 100
         print('[+] Média Accuracy (test_accuracy): %.2f' % score_result)
  
