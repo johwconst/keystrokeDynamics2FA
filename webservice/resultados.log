@@ -85,3 +85,27 @@
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 78.75 | Data: 05/05/2021 21:25:59 
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 01:54:12 
 [+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:01:05 
+[-]  ## VALIDAÇÃO USUARIO = John | Dataset 20 classes 100 dados
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:03:32 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:04:22 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:05:17 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 07/05/2021 02:08:26 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 07/05/2021 02:09:30 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 07/05/2021 02:10:11 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:10:12
+[-]  ## VALIDAÇÃO USUARIO = John | Dataset 5 classes 25 dados
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 100.0 | Data: 07/05/2021 02:31:27 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 100.0 | Data: 07/05/2021 02:31:55 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 100.0 | Data: 07/05/2021 02:32:11
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 100.0 | Data: 07/05/2021 02:32:26 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 100.0 | Data: 07/05/2021 02:33:30 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 100.0 | Data: 07/05/2021 02:34:51
+[-]  ## VALIDAÇÃO USUARIO = John | Dataset 10 classes 50 dados 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:35:29 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:36:15
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 80.0 | Data: 07/05/2021 02:37:21
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 07/05/2021 02:38:21 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 07/05/2021 02:39:30 
+[+]  Usuario Real: 41 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: False | Accuracy: 80.0 | Data: 07/05/2021 02:42:51  
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 77.89473684210526 | Data: 07/05/2021 20:11:29 
+[+]  Usuario Real: 1 | Usuario Previsto: ['1'] | Algoritimo: knn_manhattan_s | Valor de K: 3 | Match: True | Accuracy: 77.00000000000001 | Data: 07/05/2021 20:23:19 
