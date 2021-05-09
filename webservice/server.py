@@ -10,7 +10,7 @@ from flask import Flask, render_template, request, jsonify, url_for
 
 TYPING_DATA_PATH = './database/biometria.csv' # Pasta onde será salvo os dados .csv e banco
 LOG_NAME = 'resultados.log'
-K = 3
+K = 1
 SPLIT = 0.8
 app = Flask(__name__, static_folder='./static')
 
