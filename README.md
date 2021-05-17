@@ -1,6 +1,8 @@
 # TecladoBiométrico - 2FA ⌨️
 
-![estrutura_inicial](webservice/static/img/logo.png)
+<p align="center">
+  <img src="webservice/static/img/logo.png" />
+</p>
 
 O projeto TecladoBiometrico trata-se de um protótipo que faz o uso da dinâmica de digitação como segundo fator na autenticação do usuário. 
 
