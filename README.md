@@ -1,4 +1,4 @@
-# TecladoBiométrico 
+# TecladoBiométrico - 2FA ⌨️
 
 ![estrutura_inicial](webservice/static/img/logo.png)
 
