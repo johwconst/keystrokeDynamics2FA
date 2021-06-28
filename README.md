@@ -4,23 +4,25 @@
   <img src="webservice/static/img/logo.png" />
 </p>
 
-O projeto TecladoBiometrico trata-se de um protótipo que faz o uso da dinâmica de digitação como segundo fator na autenticação do usuário. 
+The Biometric Keyboard project is a prototype that uses typing dynamics as a second factor in user authentication.
 
-Autenticação com base na dinâmica de digitação não requer nenhum hardware adicional para sua implementação e fornece uma camada extra de segurança, portanto, possui um menor custo e maior segurança em comparação com os sistemas convencionais. Neste protótipo, utiliza-se algoritmo de aprendizado de máquina KNN utilizado na classificação do conjunto de dados de digitação dos usuários, onde por meio do mesmo foi possivel obter resultados promissores com taxas de accuracy de 88% para o conjunto de dados de 20 usuários testados. 
+Authentication based on typing dynamics does not require any additional hardware for its implementation and provides an extra layer of security, therefore, it has a lower cost and greater security compared to conventional systems. In this prototype, the KNN machine learning algorithm is used to classify the user's typing dataset, where it was possible to obtain promising results with accuracy rates of 88,99%, FAR 10,00% and FRR 8,33% for the final dataset. 
 
-## Instalação
+keywords: knn, keystrokes dynamics, typing dynamics, hyper parameters
 
-Requisitos: 
+## installation
+
+requirements 
 * Python 3.7.2
 
-Instalando bibliotecas: 
+installed libraries: 
 ~~~python
 pip install -r requetiments.txt
 ~~~
 
-## Executando o projeto
+## Run projetc
 ~~~python
 python server.py
 ~~~
 
-Após a aplicação estará acessivel pelo endereço: *127.0.0.1:3000*
+After the application will be accessible by address: *127.0.0.1:3000*
