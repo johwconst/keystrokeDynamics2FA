@@ -20,7 +20,7 @@ installed libraries:
 pip install -r requetiments.txt
 ~~~
 
-## Run projetc
+## Run project
 ~~~python
 python server.py
 ~~~
