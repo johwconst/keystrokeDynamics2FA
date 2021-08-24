@@ -1,4 +1,4 @@
-# TecladoBiométrico - 2FA ⌨️
+# Keystrokes Dynamics To 2FA  (KDT-2FA)⌨️
 
 <p align="center">
   <img src="webservice/static/img/logo.png" />
