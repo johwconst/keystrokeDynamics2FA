@@ -49,6 +49,8 @@ To validate the developed prototype, it was necessary to compare it with a servi
 
 Thus, through the application, 34 tests were performed, divided among 17 users. Each user was instructed to access the email service with the credentials provided by the researcher. The user performed first and second factor authentication on the email platform. After that, it was compared with accessing the prototype. All steps were followed by the researcher in order to obtain access time.
 
+In this way, it was possible to evaluate the access time of 17 users, in the two systems compared. The result obtained in the second factor authentication via email had an average time of 24.4 seconds. However, no prototype proposed, the result averaged 12.98 seconds
+
 # installation 🏃‍♂️
 
 requirements 
